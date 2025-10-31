@@ -1,5 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { UdensServiss } from '../servisi/udens-serviss';
+import { Pudele } from '../maodeli/pudele';
+import { form } from '@angular/forms/signals';
 
 @Component({
   selector: 'app-pudeles',
@@ -15,13 +17,12 @@ export class Pudeles {
     this.udensServiss.iegutPudeles();
   }
 
-  pudelesSignals = signal<Pudeles>({
-  
-    tilpums: 0, 
-    cena: 0
-  });
-
-form()
+  pudelesForma = form(signal<Pudele>({
+    materials: '',
+    volume: 0,
+    garsa: '',
+    kategorija: false
+  }))
 
 
 }

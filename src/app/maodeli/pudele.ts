@@ -1,4 +1,4 @@
-export interface Pudele {
+export type Pudele = {
     id?: number;
     materials: string;
     volume: number;
