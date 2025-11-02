@@ -1,7 +1,7 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Pudele } from '../maodeli/pudele';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,16 +13,10 @@ export class UdensServiss {
   readonly URL: string = "http://localhost:8080/";
 
 
-  iegutPudeles() {
-    return this.http.get<Pudele[]>(`${this.URL}api/pudeles`).subscribe({
-      next: (pudeles: Pudele[]) => {
-        console.log('Pudeles iegutas sekmigi:', pudeles);
-        return pudeles;
-      },
-      error: (err: any) => {
-        console.error('Kļūda iegūstot pudeles:', err);
-      }
-    });
+  iegutPudeles(): Observable<HttpResponse<Pudele[]>> {
+    return this.http.get<Pudele[]>(`${this.URL}api/pudeles`, {
+      observe: 'response'
+    })
   }
 
   pievienotPudeli(pudele: Pudele): Observable<HttpResponse<number>> {
@@ -30,6 +24,19 @@ export class UdensServiss {
       headers: { 'Content-Type': 'application/json' },
       observe: 'response'
     })
+  }
+
+  dzestPudeli(id: number): Observable<HttpResponse<void>> {
+    return this.http.delete<void>(`${this.URL}api/pudeles/${id}`, {
+      observe: 'response'
+    });
+  }
+
+  atjauninatPudeli(pudele: Pudele): Observable<HttpResponse<void>> {
+    return this.http.put<void>(`${this.URL}api/pudeles/${pudele.id}`, pudele, {
+      headers: { 'Content-Type': 'application/json' },
+      observe: 'response'
+    });
   }
 
 }

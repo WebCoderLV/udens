@@ -5,3 +5,7 @@ export type Pudele = {
     garsa: string;
     kategorija: boolean;
 }
+
+export type Daudzpudeles = {
+    pudeluArrajs: Pudele[];
+}

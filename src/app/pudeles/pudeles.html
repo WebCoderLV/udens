@@ -10,6 +10,7 @@
             id="materials-{{ i }}"
             class="form-control form-control-sm"
             [field]="p.materials"
+            (blur)="atjauninatPudeli(i)"
           />
         </div>
       </div>
@@ -21,6 +22,7 @@
             id="volume-{{ i }}"
             class="form-control form-control-sm"
             [field]="p.volume"
+            (blur)="atjauninatPudeli(i)"
           />
         </div>
       </div>
@@ -32,6 +34,7 @@
             id="garsa-{{ i }}"
             class="form-control form-control-sm"
             [field]="p.garsa"
+            (blur)="atjauninatPudeli(i)"
           />
         </div>
       </div>
@@ -44,9 +47,9 @@
                 type="radio"
                 id="kategorija1-{{ i }}"
                 class="form-check-input"
-                [field]="p.kategorija"
                 name="kategorija-{{ i }}"
-                value="true"
+                [checked]="pudelesSignals().pudeluArrajs[i]?.kategorija === true"
+                (change)="updateKategorija(i, true)"
               />
               <label for="kategorija1-{{ i }}" class="form-check-label small">Gāzēts</label>
             </div>
@@ -55,9 +58,9 @@
                 type="radio"
                 id="kategorija2-{{ i }}"
                 class="form-check-input"
-                [field]="p.kategorija"
                 name="kategorija-{{ i }}"
-                value="false"
+                [checked]="pudelesSignals().pudeluArrajs[i]?.kategorija === false"
+                (change)="updateKategorija(i, false)"
               />
               <label for="kategorija2-{{ i }}" class="form-check-label small">Negāzēts</label>
             </div>
@@ -66,11 +69,16 @@
       </div>
       <div class="col-auto">
         <div class="mb-2 d-flex align-items-end">
-          @if(pudelesForma.pudeluArrajs.length > 1 ) {
-          <button type="button" class="btn btn-success btn-sm" (click)="nonemtPudeli(i)">
+          <button
+            type="button"
+            class="btn btn-success btn-sm"
+            (click)="nonemtPudeli(i)"
+            [disabled]="
+              pudelesForma.pudeluArrajs.length < 1 || !pudelesSignals().pudeluArrajs[i]?.materials
+            "
+          >
             Noņemt
           </button>
-          }
         </div>
       </div>
     </div>
