@@ -14,14 +14,15 @@ export class UdensServiss {
 
 
   iegutPudeles(): Observable<HttpResponse<Pudele[]>> {
-    return this.http.get<Pudele[]>(`${this.URL}api/pudeles`, {
-      observe: 'response'
-    })
+    return this.http.get<Pudele[]>(
+      `${this.URL}api/pudeles`,
+      {
+        observe: 'response'
+      })
   }
 
   pievienotPudeli(pudele: Pudele): Observable<HttpResponse<number>> {
     return this.http.post<number>(`${this.URL}api/pudeles`, pudele, {
-      headers: { 'Content-Type': 'application/json' },
       observe: 'response'
     })
   }
@@ -34,7 +35,6 @@ export class UdensServiss {
 
   atjauninatPudeli(pudele: Pudele): Observable<HttpResponse<void>> {
     return this.http.put<void>(`${this.URL}api/pudeles/${pudele.id}`, pudele, {
-      headers: { 'Content-Type': 'application/json' },
       observe: 'response'
     });
   }

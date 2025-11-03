@@ -59,7 +59,7 @@ export class Pudeles implements OnInit {
 
   pievienotPudeli(): void {
     const pudeles: Pudele[] = this.pudelesSignals().pudeluArrajs;
-    if (pudeles.length === 0) return;
+    if (pudeles.length === 0) return; // Nav pudeles, ko pievienot - kļūda!
     const pedejaPudele: Pudele = pudeles[pudeles.length - 1];
     this.udensServiss.pievienotPudeli(pedejaPudele).subscribe({
       next: (response) => {
